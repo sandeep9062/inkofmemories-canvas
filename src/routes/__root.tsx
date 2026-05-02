@@ -29,14 +29,14 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "InkOfMemories — Bespoke Luxury Print Atelier" },
+      { name: "description", content: "Hand-pressed wedding invitations, premium photobooks, and corporate stationery." },
+      { name: "author", content: "InkOfMemories" },
+      { property: "og:title", content: "InkOfMemories — Bespoke Luxury Print Atelier" },
+      { property: "og:description", content: "Where memory becomes artifact." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@InkOfMemories" },
     ],
     links: [
       {
