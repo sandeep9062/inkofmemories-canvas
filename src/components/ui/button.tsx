@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-sm text-sm font-medium transition-all duration-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -16,12 +16,18 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        gold: "bg-gold text-charcoal hover:bg-gold-light shadow-gold-glow tracking-wider",
+        goldOutline: "border border-gold/40 text-gold bg-transparent hover:bg-gold hover:text-charcoal tracking-wider",
+        charcoal: "bg-charcoal text-white hover:bg-velvet tracking-wider",
+        ghostLuxe: "text-foreground/70 hover:text-gold hover:bg-transparent tracking-[0.2em] uppercase text-xs",
       },
       size: {
         default: "h-9 px-4 py-2",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
+        luxe: "h-14 px-10 text-xs uppercase tracking-[0.25em]",
+        luxeLg: "h-16 px-12 text-xs uppercase tracking-[0.3em]",
       },
     },
     defaultVariants: {
