@@ -191,6 +191,43 @@
     color: transparent;
   }
 
+  .gold-foil-shimmer {
+    background: linear-gradient(
+      110deg,
+      #8E7A52 0%,
+      #C9A86A 25%,
+      #F1E2C2 45%,
+      #FFFBEF 50%,
+      #F1E2C2 55%,
+      #C9A86A 75%,
+      #8E7A52 100%
+    );
+    background-size: 250% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gold-shimmer 6s ease-in-out infinite;
+  }
+
+  @keyframes gold-shimmer {
+    0%, 100% { background-position: 100% 0; }
+    50% { background-position: 0 0; }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee { animation: marquee 40s linear infinite; }
+
+  @keyframes scroll-hint {
+    0%, 100% { transform: translateY(0); opacity: 0.4; }
+    50% { transform: translateY(8px); opacity: 1; }
+  }
+  .animate-scroll-hint { animation: scroll-hint 2.2s ease-in-out infinite; }
+
   .tracking-luxe { letter-spacing: 0.3em; }
 
   .hairline { height: 1px; background: color-mix(in oklab, var(--charcoal) 12%, transparent); }

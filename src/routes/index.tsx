@@ -1,8 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Shield, Truck } from "lucide-react";
+import { ArrowRight, Sparkles, Shield, Truck, Star, Truck as TruckIcon, Palette, FileCheck, RotateCcw, Award, ShieldCheck, Leaf, Factory } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import heroInvitation from "@/assets/hero-invitation.jpg";
 import serviceWeddings from "@/assets/service-weddings.jpg";
 import serviceCorporate from "@/assets/service-corporate.jpg";
@@ -53,6 +59,8 @@ function HomePage() {
   return (
     <SiteLayout>
       <Hero />
+      <TrustBadges />
+      <HeroFAQ />
       <TrustBar />
       <ServicePillars />
       <Atelier />
@@ -63,77 +71,299 @@ function HomePage() {
 
 function Hero() {
   return (
-    <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 px-6 lg:px-10 overflow-hidden">
-      <div className="absolute -top-40 -right-40 size-[500px] bg-gold/8 blur-[120px] rounded-full pointer-events-none" />
-      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 lg:gap-12 items-center">
+    <section className="relative pt-24 pb-24 lg:pt-32 lg:pb-36 px-6 lg:px-10 overflow-hidden">
+      {/* Ambient luxe atmosphere */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-40 -right-40 size-[600px] bg-gold/10 blur-[140px] rounded-full" />
+        <div className="absolute -bottom-60 -left-40 size-[500px] bg-gold/5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 size-[700px] bg-gold/[0.04] blur-[160px] rounded-full" />
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+        {/* Soft top fade */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent" />
+      </div>
+
+      {/* Vertical hairline ornaments */}
+      <div className="hidden lg:block absolute top-32 left-10 bottom-32 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent pointer-events-none" />
+      <div className="hidden lg:block absolute top-32 right-10 bottom-32 w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 lg:gap-16 items-center relative">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="col-span-12 lg:col-span-5 z-10"
         >
-          <div className="inline-block px-4 py-1.5 border border-gold/30 rounded-full mb-8 glass-gold">
-            <span className="text-[10px] tracking-[0.3em] uppercase text-gold-muted">
-              Atelier &middot; Established MMXXIV
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="inline-flex items-center gap-3 mb-10 px-4 py-2 rounded-full glass-gold"
+          >
+            <span className="size-1.5 rounded-full bg-gold animate-pulse" />
+            <span className="text-[10px] tracking-[0.35em] uppercase text-gold-muted font-medium">
+              Now Accepting Spring '26 Commissions
             </span>
-          </div>
-          <h1 className="font-serif text-6xl md:text-7xl lg:text-[5.5rem] leading-[0.95] mb-8 text-balance">
-            Where memory<br />
-            becomes <span className="italic gold-foil">artifact.</span>
+          </motion.div>
+
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-[5.75rem] leading-[0.92] mb-10 text-balance tracking-tight">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="block"
+            >
+              Where memory
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="block"
+            >
+              becomes <span className="italic gold-foil-shimmer font-light">artifact.</span>
+            </motion.span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-[42ch] leading-relaxed mb-12 font-light">
-            Hand-pressed gold foil on 600gsm cotton. Bound, debossed, and delivered for those
-            who recognize the difference between a print and a keepsake.
-          </p>
-          <div className="flex flex-wrap items-center gap-6">
-            <Button asChild variant="charcoal" size="luxeLg">
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45 }}
+            className="text-lg text-muted-foreground max-w-[44ch] leading-[1.7] mb-12 font-light"
+          >
+            Hand-pressed 24k gold foil on 600gsm Italian cotton. Bound, debossed,
+            and delivered for those who recognize the difference between a print
+            and a <em className="italic text-foreground/80">keepsake</em>.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-wrap items-center gap-8"
+          >
+            <Button asChild variant="charcoal" size="luxeLg" className="group relative overflow-hidden">
               <Link to="/canvas">
-                Create Your Memory <ArrowRight className="ml-1 size-3.5" />
+                <span className="relative z-10">Begin Your Commission</span>
+                <ArrowRight className="ml-1 size-3.5 relative z-10 group-hover:translate-x-1 transition-transform duration-500" />
               </Link>
             </Button>
             <Link
               to="/collections"
-              className="group flex items-center gap-3 text-[11px] tracking-[0.25em] uppercase text-foreground/70 hover:text-gold-muted transition-colors"
+              className="group flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-foreground/70 hover:text-gold-muted transition-colors"
             >
-              View Collections
-              <span className="block h-px w-8 bg-foreground/30 group-hover:w-12 group-hover:bg-gold transition-all" />
+              View Atelier
+              <span className="block h-px w-8 bg-foreground/30 group-hover:w-14 group-hover:bg-gold transition-all duration-500" />
             </Link>
-          </div>
+          </motion.div>
+
+          {/* Trust signal — connoisseurship */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.9 }}
+            className="mt-14 pt-8 border-t border-border/60 flex items-center gap-8 flex-wrap"
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex -space-x-2">
+                {[0, 1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="size-8 rounded-full border-2 border-background bg-gradient-to-br from-gold-light to-gold-muted"
+                    style={{ zIndex: 4 - i }}
+                  />
+                ))}
+              </div>
+              <div>
+                <div className="flex items-center gap-1 mb-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="size-3 fill-gold text-gold" />
+                  ))}
+                  <span className="ml-1.5 text-[11px] font-serif italic text-foreground/80">4.97</span>
+                </div>
+                <div className="text-[10px] tracking-[0.2em] uppercase text-foreground/50 font-light">
+                  2,400+ connoisseurs
+                </div>
+              </div>
+            </div>
+            <div className="h-10 w-px bg-border/60 hidden sm:block" />
+            <div>
+              <div className="font-serif text-xl gold-foil leading-none">
+                Vogue · Vanity Fair
+              </div>
+              <div className="text-[10px] tracking-[0.2em] uppercase text-foreground/50 font-light mt-1.5">
+                As featured in
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           className="col-span-12 lg:col-span-7 relative"
         >
-          <div className="relative aspect-[4/5] lg:aspect-[5/6] overflow-hidden shadow-luxe">
-            <img
+          {/* Corner ornaments */}
+          <div className="absolute -top-4 -left-4 size-8 border-l border-t border-gold/40 z-20" />
+          <div className="absolute -bottom-4 -right-4 size-8 border-r border-b border-gold/40 z-20" />
+
+          <div className="relative aspect-[4/5] lg:aspect-[5/6] overflow-hidden shadow-luxe group">
+            {/* Gold gradient frame on hover */}
+            <div className="absolute inset-0 z-10 pointer-events-none ring-1 ring-inset ring-gold/0 group-hover:ring-gold/20 transition-all duration-700" />
+
+            <motion.img
               src={heroInvitation}
-              alt="Gold foiled wedding invitation"
+              alt="Gold foiled wedding invitation, hand-pressed at the InkOfMemories atelier"
               width={1024}
               height={1280}
               className="w-full h-full object-cover"
+              initial={{ scale: 1.08 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
             />
+
+            {/* Subtle vignette */}
+            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent pointer-events-none" />
+
+            {/* Top-left number plate */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="absolute bottom-6 right-6 lg:bottom-10 lg:right-10 glass-dark p-6 max-w-[260px] rounded-sm"
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="absolute top-6 left-6 lg:top-10 lg:left-10 flex items-center gap-3"
             >
-              <div className="text-gold text-[10px] tracking-[0.3em] uppercase mb-2">
-                Featured &middot; No. 047
+              <div className="size-10 rounded-full glass-dark flex items-center justify-center">
+                <span className="font-serif text-gold text-sm italic">N°</span>
               </div>
-              <div className="font-serif text-xl text-white italic">
+              <div className="text-white/70 text-[10px] tracking-[0.3em] uppercase">
+                047 / 100
+              </div>
+            </motion.div>
+
+            {/* Bottom card */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.9 }}
+              className="absolute bottom-6 right-6 lg:bottom-10 lg:right-10 glass-dark p-7 max-w-[280px] rounded-sm"
+            >
+              <div className="text-gold text-[10px] tracking-[0.3em] uppercase mb-3">
+                Featured Commission
+              </div>
+              <div className="font-serif text-2xl text-white italic leading-tight">
                 The St. Regis Suite
               </div>
-              <div className="hairline-gold w-12 mt-4" />
-              <p className="mt-3 text-[11px] tracking-wide text-white/60 font-light leading-relaxed">
-                24k micron-pressed foil on hand-milled cotton.
+              <div className="hairline-gold w-12 mt-4 mb-4" />
+              <p className="text-[11px] tracking-wide text-white/60 font-light leading-relaxed">
+                24k micron-pressed foil on hand-milled Amalfi cotton.
               </p>
+              <div className="mt-5 flex items-center justify-between text-[10px] tracking-[0.2em] uppercase text-white/40">
+                <span>From £480</span>
+                <span className="text-gold/80">Bespoke</span>
+              </div>
+            </motion.div>
+
+            {/* Floating spec chip */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1, duration: 0.6 }}
+              className="hidden md:flex absolute top-1/3 -left-8 glass px-5 py-4 rounded-sm flex-col items-center shadow-luxe"
+            >
+              <span className="font-serif text-2xl gold-foil leading-none">600</span>
+              <span className="text-[8px] tracking-[0.25em] uppercase text-foreground/50 mt-1">gsm cotton</span>
+            </motion.div>
+
+            {/* Second spec chip — foil */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.15, duration: 0.6 }}
+              className="hidden md:flex absolute top-2/3 -right-8 glass px-5 py-4 rounded-sm flex-col items-center shadow-luxe"
+            >
+              <span className="font-serif text-2xl gold-foil leading-none">24k</span>
+              <span className="text-[8px] tracking-[0.25em] uppercase text-foreground/50 mt-1">gold foil</span>
             </motion.div>
           </div>
+
+          {/* Vertical edition mark */}
+          <div className="hidden xl:block absolute -right-12 top-12 [writing-mode:vertical-rl] rotate-180 text-[9px] tracking-[0.5em] uppercase text-foreground/30 font-light">
+            Edition · MMXXVI · Hand-pressed
+          </div>
         </motion.div>
+      </div>
+
+      {/* Press marquee */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 1.2 }}
+        className="relative mt-20 lg:mt-28 max-w-7xl mx-auto"
+      >
+        <div className="flex items-center gap-6 mb-6">
+          <span className="block h-px flex-1 bg-border/70" />
+          <span className="text-[10px] tracking-[0.4em] uppercase text-foreground/40 font-light">
+            Pressed for the world's most discerning houses
+          </span>
+          <span className="block h-px flex-1 bg-border/70" />
+        </div>
+        <div className="overflow-hidden relative" style={{ maskImage: "linear-gradient(90deg, transparent, black 10%, black 90%, transparent)" }}>
+          <div className="flex gap-16 animate-marquee whitespace-nowrap">
+            {[...Array(2)].map((_, dup) => (
+              <div key={dup} className="flex gap-16 shrink-0">
+                {["The St. Regis", "Aman Resorts", "Rosewood", "Cartier", "Hermès Maison", "The Connaught", "Dior Couture", "Soho House"].map((b) => (
+                  <span key={b} className="font-serif text-2xl italic text-foreground/35 hover:text-gold transition-colors">
+                    {b}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <div className="hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 pointer-events-none">
+        <span className="text-[9px] tracking-[0.4em] uppercase text-foreground/40">Scroll</span>
+        <div className="h-10 w-px bg-gradient-to-b from-gold/60 to-transparent animate-scroll-hint" />
+      </div>
+    </section>
+  );
+}
+
+const trustBadges = [
+  { icon: Factory, label: "100% In-House Printing", sub: "From quote to dispatch" },
+  { icon: ShieldCheck, label: "Insured Worldwide Shipping", sub: "Velvet-lined, fully tracked" },
+  { icon: Leaf, label: "FSC-Certified Materials", sub: "Italian cotton & cardstock" },
+  { icon: Award, label: "Atelier Quality Guarantee", sub: "Remade if not perfect" },
+] as const;
+
+function TrustBadges() {
+  return (
+    <section className="px-6 lg:px-10 pt-2 pb-2">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-5 py-6 border-y border-border/50">
+          {trustBadges.map((b) => (
+            <div key={b.label} className="flex items-center gap-3">
+              <b.icon className="size-4 text-gold-muted shrink-0" strokeWidth={1.5} />
+              <div className="leading-tight">
+                <div className="text-[10px] tracking-[0.22em] uppercase text-foreground/80 font-medium">
+                  {b.label}
+                </div>
+                <div className="text-[10px] text-muted-foreground font-light mt-0.5">
+                  {b.sub}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -302,6 +532,66 @@ function CTA() {
           </Button>
         </div>
       </motion.div>
+    </section>
+  );
+}
+
+const heroFaq = [
+  {
+    icon: TruckIcon,
+    q: "Shipping & lead times",
+    a: "Standard commissions dispatch in 7–10 days, expedited in 3–5. Velvet-lined archival delivery worldwide, fully insured and tracked.",
+  },
+  {
+    icon: Palette,
+    q: "Finishes & materials",
+    a: "Choose from matte, satin gloss, debossed, letterpress, and 24k gold or rose-foil — all on 350–600gsm Italian cotton or hot-pressed cardstock.",
+  },
+  {
+    icon: FileCheck,
+    q: "Digital & physical proofs",
+    a: "Free digital proof within 24 hours. Hand-pressed physical proofs available for £25, fully credited toward your final order.",
+  },
+  {
+    icon: RotateCcw,
+    q: "Returns & remakes",
+    a: "If a piece doesn't meet our atelier standard, we remake it — at no cost. Bespoke commissions are non-refundable once pressed.",
+  },
+] as const;
+
+function HeroFAQ() {
+  return (
+    <section className="px-6 lg:px-10 -mt-8 lg:-mt-12 relative z-10">
+      <div className="max-w-7xl mx-auto">
+        <div className="glass rounded-sm shadow-luxe overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-border/60">
+            {heroFaq.map((item, i) => (
+              <Accordion
+                key={item.q}
+                type="single"
+                collapsible
+                className="group/faq"
+              >
+                <AccordionItem value={`item-${i}`} className="border-b-0">
+                  <AccordionTrigger className="px-6 py-5 hover:no-underline hover:bg-secondary/40 transition-colors [&[data-state=open]]:bg-secondary/40">
+                    <div className="flex items-center gap-3 text-left">
+                      <item.icon className="size-4 text-gold-muted shrink-0" strokeWidth={1.5} />
+                      <span className="text-[11px] tracking-[0.2em] uppercase text-foreground/80 font-medium">
+                        {item.q}
+                      </span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-5 pt-0">
+                    <p className="text-[13px] leading-relaxed text-muted-foreground font-light pl-7">
+                      {item.a}
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
