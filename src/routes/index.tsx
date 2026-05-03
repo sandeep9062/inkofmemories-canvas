@@ -272,10 +272,6 @@ function Hero() {
 }
 
 function TrustBar() {
-  return null;
-}
-
-function _UnusedTrustBar() {
   const items = [
     { icon: Sparkles, text: "Printed in-house at our state-of-the-art atelier" },
     { icon: Shield, text: "FSC-certified 600gsm cotton, archival quality" },
