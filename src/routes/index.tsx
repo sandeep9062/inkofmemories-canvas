@@ -1,8 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Shield, Truck, Star } from "lucide-react";
+import { ArrowRight, Sparkles, Shield, Truck, Star, Truck as TruckIcon, Palette, FileCheck, RotateCcw } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import heroInvitation from "@/assets/hero-invitation.jpg";
 import serviceWeddings from "@/assets/service-weddings.jpg";
 import serviceCorporate from "@/assets/service-corporate.jpg";
@@ -53,6 +59,7 @@ function HomePage() {
   return (
     <SiteLayout>
       <Hero />
+      <HeroFAQ />
       <TrustBar />
       <ServicePillars />
       <Atelier />
@@ -427,6 +434,66 @@ function CTA() {
           </Button>
         </div>
       </motion.div>
+    </section>
+  );
+}
+
+const heroFaq = [
+  {
+    icon: TruckIcon,
+    q: "Shipping & lead times",
+    a: "Standard commissions dispatch in 7–10 days, expedited in 3–5. Velvet-lined archival delivery worldwide, fully insured and tracked.",
+  },
+  {
+    icon: Palette,
+    q: "Finishes & materials",
+    a: "Choose from matte, satin gloss, debossed, letterpress, and 24k gold or rose-foil — all on 350–600gsm Italian cotton or hot-pressed cardstock.",
+  },
+  {
+    icon: FileCheck,
+    q: "Digital & physical proofs",
+    a: "Free digital proof within 24 hours. Hand-pressed physical proofs available for £25, fully credited toward your final order.",
+  },
+  {
+    icon: RotateCcw,
+    q: "Returns & remakes",
+    a: "If a piece doesn't meet our atelier standard, we remake it — at no cost. Bespoke commissions are non-refundable once pressed.",
+  },
+] as const;
+
+function HeroFAQ() {
+  return (
+    <section className="px-6 lg:px-10 -mt-8 lg:-mt-12 relative z-10">
+      <div className="max-w-7xl mx-auto">
+        <div className="glass rounded-sm shadow-luxe overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-border/60">
+            {heroFaq.map((item, i) => (
+              <Accordion
+                key={item.q}
+                type="single"
+                collapsible
+                className="group/faq"
+              >
+                <AccordionItem value={`item-${i}`} className="border-b-0">
+                  <AccordionTrigger className="px-6 py-5 hover:no-underline hover:bg-secondary/40 transition-colors [&[data-state=open]]:bg-secondary/40">
+                    <div className="flex items-center gap-3 text-left">
+                      <item.icon className="size-4 text-gold-muted shrink-0" strokeWidth={1.5} />
+                      <span className="text-[11px] tracking-[0.2em] uppercase text-foreground/80 font-medium">
+                        {item.q}
+                      </span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-5 pt-0">
+                    <p className="text-[13px] leading-relaxed text-muted-foreground font-light pl-7">
+                      {item.a}
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
