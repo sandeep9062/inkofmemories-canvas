@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Shield, Truck, Star, Truck as TruckIcon, Palette, FileCheck, RotateCcw } from "lucide-react";
+import { ArrowRight, Sparkles, Shield, Truck, Star, Truck as TruckIcon, Palette, FileCheck, RotateCcw, Award, ShieldCheck, Leaf, Factory } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import {
@@ -59,6 +59,7 @@ function HomePage() {
   return (
     <SiteLayout>
       <Hero />
+      <TrustBadges />
       <HeroFAQ />
       <TrustBar />
       <ServicePillars />
@@ -266,6 +267,37 @@ function Hero() {
             </motion.div>
           </div>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+const trustBadges = [
+  { icon: Factory, label: "100% In-House Printing", sub: "From quote to dispatch" },
+  { icon: ShieldCheck, label: "Insured Worldwide Shipping", sub: "Velvet-lined, fully tracked" },
+  { icon: Leaf, label: "FSC-Certified Materials", sub: "Italian cotton & cardstock" },
+  { icon: Award, label: "Atelier Quality Guarantee", sub: "Remade if not perfect" },
+] as const;
+
+function TrustBadges() {
+  return (
+    <section className="px-6 lg:px-10 pt-2 pb-2">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-5 py-6 border-y border-border/50">
+          {trustBadges.map((b) => (
+            <div key={b.label} className="flex items-center gap-3">
+              <b.icon className="size-4 text-gold-muted shrink-0" strokeWidth={1.5} />
+              <div className="leading-tight">
+                <div className="text-[10px] tracking-[0.22em] uppercase text-foreground/80 font-medium">
+                  {b.label}
+                </div>
+                <div className="text-[10px] text-muted-foreground font-light mt-0.5">
+                  {b.sub}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
