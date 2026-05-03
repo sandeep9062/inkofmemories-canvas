@@ -1,8 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Shield, Truck, Star } from "lucide-react";
+import { ArrowRight, Sparkles, Shield, Truck, Star, Truck as TruckIcon, Palette, FileCheck, RotateCcw } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import heroInvitation from "@/assets/hero-invitation.jpg";
 import serviceWeddings from "@/assets/service-weddings.jpg";
 import serviceCorporate from "@/assets/service-corporate.jpg";
@@ -53,6 +59,7 @@ function HomePage() {
   return (
     <SiteLayout>
       <Hero />
+      <HeroFAQ />
       <TrustBar />
       <ServicePillars />
       <Atelier />
