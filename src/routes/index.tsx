@@ -463,10 +463,6 @@ const heroFaq = [
 ] as const;
 
 function HeroFAQ() {
-  return _HeroFAQImpl();
-}
-
-function _HeroFAQImpl() {
   return (
     <section className="px-6 lg:px-10 -mt-8 lg:-mt-12 relative z-10">
       <div className="max-w-7xl mx-auto">
