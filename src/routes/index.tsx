@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Shield, Truck, Star, Truck as TruckIcon, Palette, FileCheck, RotateCcw } from "lucide-react";
+import { ArrowRight, Sparkles, Shield, Truck, Star, Truck as TruckIcon, Palette, FileCheck, RotateCcw, Award, ShieldCheck, Leaf, Factory } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import {
@@ -59,6 +59,7 @@ function HomePage() {
   return (
     <SiteLayout>
       <Hero />
+      <TrustBadges />
       <HeroFAQ />
       <TrustBar />
       <ServicePillars />
