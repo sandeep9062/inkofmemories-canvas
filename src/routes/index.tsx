@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Shield, Truck } from "lucide-react";
+import { ArrowRight, Sparkles, Shield, Truck, Star } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import heroInvitation from "@/assets/hero-invitation.jpg";
@@ -63,74 +63,199 @@ function HomePage() {
 
 function Hero() {
   return (
-    <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 px-6 lg:px-10 overflow-hidden">
-      <div className="absolute -top-40 -right-40 size-[500px] bg-gold/8 blur-[120px] rounded-full pointer-events-none" />
-      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 lg:gap-12 items-center">
+    <section className="relative pt-28 pb-28 lg:pt-36 lg:pb-40 px-6 lg:px-10 overflow-hidden">
+      {/* Ambient luxe atmosphere */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-40 -right-40 size-[600px] bg-gold/10 blur-[140px] rounded-full" />
+        <div className="absolute -bottom-60 -left-40 size-[500px] bg-gold/5 blur-[120px] rounded-full" />
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+      </div>
+
+      {/* Vertical hairline ornaments */}
+      <div className="hidden lg:block absolute top-32 left-10 bottom-32 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent pointer-events-none" />
+      <div className="hidden lg:block absolute top-32 right-10 bottom-32 w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 lg:gap-16 items-center relative">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="col-span-12 lg:col-span-5 z-10"
         >
-          <div className="inline-block px-4 py-1.5 border border-gold/30 rounded-full mb-8 glass-gold">
-            <span className="text-[10px] tracking-[0.3em] uppercase text-gold-muted">
-              Atelier &middot; Established MMXXIV
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex items-center gap-4 mb-10"
+          >
+            <span className="block h-px w-10 bg-gold/60" />
+            <span className="text-[10px] tracking-[0.4em] uppercase text-gold-muted font-medium">
+              Atelier &middot; Est. MMXXIV
             </span>
-          </div>
-          <h1 className="font-serif text-6xl md:text-7xl lg:text-[5.5rem] leading-[0.95] mb-8 text-balance">
-            Where memory<br />
-            becomes <span className="italic gold-foil">artifact.</span>
+          </motion.div>
+
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-[5.75rem] leading-[0.92] mb-10 text-balance tracking-tight">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="block"
+            >
+              Where memory
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="block"
+            >
+              becomes <span className="italic gold-foil font-light">artifact.</span>
+            </motion.span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-[42ch] leading-relaxed mb-12 font-light">
-            Hand-pressed gold foil on 600gsm cotton. Bound, debossed, and delivered for those
-            who recognize the difference between a print and a keepsake.
-          </p>
-          <div className="flex flex-wrap items-center gap-6">
-            <Button asChild variant="charcoal" size="luxeLg">
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45 }}
+            className="text-lg text-muted-foreground max-w-[44ch] leading-[1.7] mb-12 font-light"
+          >
+            Hand-pressed 24k gold foil on 600gsm Italian cotton. Bound, debossed,
+            and delivered for those who recognize the difference between a print
+            and a <em className="italic text-foreground/80">keepsake</em>.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-wrap items-center gap-8"
+          >
+            <Button asChild variant="charcoal" size="luxeLg" className="group relative overflow-hidden">
               <Link to="/canvas">
-                Create Your Memory <ArrowRight className="ml-1 size-3.5" />
+                <span className="relative z-10">Begin Your Commission</span>
+                <ArrowRight className="ml-1 size-3.5 relative z-10 group-hover:translate-x-1 transition-transform duration-500" />
               </Link>
             </Button>
             <Link
               to="/collections"
-              className="group flex items-center gap-3 text-[11px] tracking-[0.25em] uppercase text-foreground/70 hover:text-gold-muted transition-colors"
+              className="group flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-foreground/70 hover:text-gold-muted transition-colors"
             >
-              View Collections
-              <span className="block h-px w-8 bg-foreground/30 group-hover:w-12 group-hover:bg-gold transition-all" />
+              View Atelier
+              <span className="block h-px w-8 bg-foreground/30 group-hover:w-14 group-hover:bg-gold transition-all duration-500" />
             </Link>
-          </div>
+          </motion.div>
+
+          {/* Trust signal — connoisseurship */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.9 }}
+            className="mt-16 pt-8 border-t border-border/60 flex items-center gap-6"
+          >
+            <div className="flex -space-x-2">
+              {[0, 1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="size-8 rounded-full border-2 border-background bg-gradient-to-br from-gold-light to-gold-muted"
+                  style={{ zIndex: 4 - i }}
+                />
+              ))}
+            </div>
+            <div>
+              <div className="flex items-center gap-1 mb-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="size-3 fill-gold text-gold" />
+                ))}
+              </div>
+              <div className="text-[10px] tracking-[0.2em] uppercase text-foreground/50 font-light">
+                Trusted by 2,400+ connoisseurs
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           className="col-span-12 lg:col-span-7 relative"
         >
-          <div className="relative aspect-[4/5] lg:aspect-[5/6] overflow-hidden shadow-luxe">
-            <img
+          {/* Corner ornaments */}
+          <div className="absolute -top-4 -left-4 size-8 border-l border-t border-gold/40 z-20" />
+          <div className="absolute -bottom-4 -right-4 size-8 border-r border-b border-gold/40 z-20" />
+
+          <div className="relative aspect-[4/5] lg:aspect-[5/6] overflow-hidden shadow-luxe group">
+            {/* Gold gradient frame on hover */}
+            <div className="absolute inset-0 z-10 pointer-events-none ring-1 ring-inset ring-gold/0 group-hover:ring-gold/20 transition-all duration-700" />
+
+            <motion.img
               src={heroInvitation}
-              alt="Gold foiled wedding invitation"
+              alt="Gold foiled wedding invitation, hand-pressed at the InkOfMemories atelier"
               width={1024}
               height={1280}
               className="w-full h-full object-cover"
+              initial={{ scale: 1.08 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
             />
+
+            {/* Subtle vignette */}
+            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent pointer-events-none" />
+
+            {/* Top-left number plate */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="absolute bottom-6 right-6 lg:bottom-10 lg:right-10 glass-dark p-6 max-w-[260px] rounded-sm"
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="absolute top-6 left-6 lg:top-10 lg:left-10 flex items-center gap-3"
             >
-              <div className="text-gold text-[10px] tracking-[0.3em] uppercase mb-2">
-                Featured &middot; No. 047
+              <div className="size-10 rounded-full glass-dark flex items-center justify-center">
+                <span className="font-serif text-gold text-sm italic">N°</span>
               </div>
-              <div className="font-serif text-xl text-white italic">
+              <div className="text-white/70 text-[10px] tracking-[0.3em] uppercase">
+                047 / 100
+              </div>
+            </motion.div>
+
+            {/* Bottom card */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.9 }}
+              className="absolute bottom-6 right-6 lg:bottom-10 lg:right-10 glass-dark p-7 max-w-[280px] rounded-sm"
+            >
+              <div className="text-gold text-[10px] tracking-[0.3em] uppercase mb-3">
+                Featured Commission
+              </div>
+              <div className="font-serif text-2xl text-white italic leading-tight">
                 The St. Regis Suite
               </div>
-              <div className="hairline-gold w-12 mt-4" />
-              <p className="mt-3 text-[11px] tracking-wide text-white/60 font-light leading-relaxed">
-                24k micron-pressed foil on hand-milled cotton.
+              <div className="hairline-gold w-12 mt-4 mb-4" />
+              <p className="text-[11px] tracking-wide text-white/60 font-light leading-relaxed">
+                24k micron-pressed foil on hand-milled Amalfi cotton.
               </p>
+              <div className="mt-5 flex items-center justify-between text-[10px] tracking-[0.2em] uppercase text-white/40">
+                <span>From £480</span>
+                <span className="text-gold/80">Bespoke</span>
+              </div>
+            </motion.div>
+
+            {/* Floating spec chip */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1, duration: 0.6 }}
+              className="hidden md:flex absolute top-1/2 -left-6 -translate-y-1/2 glass px-4 py-3 rounded-sm flex-col items-center shadow-luxe"
+            >
+              <span className="font-serif text-2xl gold-foil leading-none">600</span>
+              <span className="text-[8px] tracking-[0.25em] uppercase text-foreground/50 mt-1">gsm cotton</span>
             </motion.div>
           </div>
         </motion.div>
