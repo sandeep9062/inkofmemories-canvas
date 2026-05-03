@@ -71,11 +71,12 @@ function HomePage() {
 
 function Hero() {
   return (
-    <section className="relative pt-28 pb-28 lg:pt-36 lg:pb-40 px-6 lg:px-10 overflow-hidden">
+    <section className="relative pt-24 pb-24 lg:pt-32 lg:pb-36 px-6 lg:px-10 overflow-hidden">
       {/* Ambient luxe atmosphere */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-40 -right-40 size-[600px] bg-gold/10 blur-[140px] rounded-full" />
         <div className="absolute -bottom-60 -left-40 size-[500px] bg-gold/5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 size-[700px] bg-gold/[0.04] blur-[160px] rounded-full" />
         <div
           className="absolute inset-0 opacity-[0.025]"
           style={{
@@ -84,6 +85,8 @@ function Hero() {
             backgroundSize: "32px 32px",
           }}
         />
+        {/* Soft top fade */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent" />
       </div>
 
       {/* Vertical hairline ornaments */}
@@ -101,11 +104,11 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex items-center gap-4 mb-10"
+            className="inline-flex items-center gap-3 mb-10 px-4 py-2 rounded-full glass-gold"
           >
-            <span className="block h-px w-10 bg-gold/60" />
-            <span className="text-[10px] tracking-[0.4em] uppercase text-gold-muted font-medium">
-              Atelier &middot; Est. MMXXIV
+            <span className="size-1.5 rounded-full bg-gold animate-pulse" />
+            <span className="text-[10px] tracking-[0.35em] uppercase text-gold-muted font-medium">
+              Now Accepting Spring '26 Commissions
             </span>
           </motion.div>
 
@@ -124,7 +127,7 @@ function Hero() {
               transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="block"
             >
-              becomes <span className="italic gold-foil font-light">artifact.</span>
+              becomes <span className="italic gold-foil-shimmer font-light">artifact.</span>
             </motion.span>
           </h1>
 
@@ -165,25 +168,37 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.9 }}
-            className="mt-16 pt-8 border-t border-border/60 flex items-center gap-6"
+            className="mt-14 pt-8 border-t border-border/60 flex items-center gap-8 flex-wrap"
           >
-            <div className="flex -space-x-2">
-              {[0, 1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="size-8 rounded-full border-2 border-background bg-gradient-to-br from-gold-light to-gold-muted"
-                  style={{ zIndex: 4 - i }}
-                />
-              ))}
-            </div>
-            <div>
-              <div className="flex items-center gap-1 mb-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="size-3 fill-gold text-gold" />
+            <div className="flex items-center gap-3">
+              <div className="flex -space-x-2">
+                {[0, 1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="size-8 rounded-full border-2 border-background bg-gradient-to-br from-gold-light to-gold-muted"
+                    style={{ zIndex: 4 - i }}
+                  />
                 ))}
               </div>
-              <div className="text-[10px] tracking-[0.2em] uppercase text-foreground/50 font-light">
-                Trusted by 2,400+ connoisseurs
+              <div>
+                <div className="flex items-center gap-1 mb-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="size-3 fill-gold text-gold" />
+                  ))}
+                  <span className="ml-1.5 text-[11px] font-serif italic text-foreground/80">4.97</span>
+                </div>
+                <div className="text-[10px] tracking-[0.2em] uppercase text-foreground/50 font-light">
+                  2,400+ connoisseurs
+                </div>
+              </div>
+            </div>
+            <div className="h-10 w-px bg-border/60 hidden sm:block" />
+            <div>
+              <div className="font-serif text-xl gold-foil leading-none">
+                Vogue · Vanity Fair
+              </div>
+              <div className="text-[10px] tracking-[0.2em] uppercase text-foreground/50 font-light mt-1.5">
+                As featured in
               </div>
             </div>
           </motion.div>
@@ -260,13 +275,64 @@ function Hero() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1, duration: 0.6 }}
-              className="hidden md:flex absolute top-1/2 -left-6 -translate-y-1/2 glass px-4 py-3 rounded-sm flex-col items-center shadow-luxe"
+              className="hidden md:flex absolute top-1/3 -left-8 glass px-5 py-4 rounded-sm flex-col items-center shadow-luxe"
             >
               <span className="font-serif text-2xl gold-foil leading-none">600</span>
               <span className="text-[8px] tracking-[0.25em] uppercase text-foreground/50 mt-1">gsm cotton</span>
             </motion.div>
+
+            {/* Second spec chip — foil */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.15, duration: 0.6 }}
+              className="hidden md:flex absolute top-2/3 -right-8 glass px-5 py-4 rounded-sm flex-col items-center shadow-luxe"
+            >
+              <span className="font-serif text-2xl gold-foil leading-none">24k</span>
+              <span className="text-[8px] tracking-[0.25em] uppercase text-foreground/50 mt-1">gold foil</span>
+            </motion.div>
+          </div>
+
+          {/* Vertical edition mark */}
+          <div className="hidden xl:block absolute -right-12 top-12 [writing-mode:vertical-rl] rotate-180 text-[9px] tracking-[0.5em] uppercase text-foreground/30 font-light">
+            Edition · MMXXVI · Hand-pressed
           </div>
         </motion.div>
+      </div>
+
+      {/* Press marquee */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 1.2 }}
+        className="relative mt-20 lg:mt-28 max-w-7xl mx-auto"
+      >
+        <div className="flex items-center gap-6 mb-6">
+          <span className="block h-px flex-1 bg-border/70" />
+          <span className="text-[10px] tracking-[0.4em] uppercase text-foreground/40 font-light">
+            Pressed for the world's most discerning houses
+          </span>
+          <span className="block h-px flex-1 bg-border/70" />
+        </div>
+        <div className="overflow-hidden relative" style={{ maskImage: "linear-gradient(90deg, transparent, black 10%, black 90%, transparent)" }}>
+          <div className="flex gap-16 animate-marquee whitespace-nowrap">
+            {[...Array(2)].map((_, dup) => (
+              <div key={dup} className="flex gap-16 shrink-0">
+                {["The St. Regis", "Aman Resorts", "Rosewood", "Cartier", "Hermès Maison", "The Connaught", "Dior Couture", "Soho House"].map((b) => (
+                  <span key={b} className="font-serif text-2xl italic text-foreground/35 hover:text-gold transition-colors">
+                    {b}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <div className="hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 pointer-events-none">
+        <span className="text-[9px] tracking-[0.4em] uppercase text-foreground/40">Scroll</span>
+        <div className="h-10 w-px bg-gradient-to-b from-gold/60 to-transparent animate-scroll-hint" />
       </div>
     </section>
   );
