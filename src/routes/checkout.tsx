@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, Check, ArrowRight, ArrowLeft } from "lucide-react";
+import { Lock, Check, ArrowRight, ArrowLeft, FileCheck2, ZoomIn, Download } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import heroInvitation from "@/assets/hero-invitation.jpg";
@@ -18,11 +18,12 @@ export const Route = createFileRoute("/checkout")({
   component: CheckoutPage,
 });
 
-const STEPS = ["Design", "Shipping", "Payment"] as const;
+const STEPS = ["Design", "Proof", "Shipping", "Payment"] as const;
 
 function CheckoutPage() {
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
+  const [proofApproved, setProofApproved] = useState(false);
 
   return (
     <SiteLayout>
@@ -33,7 +34,7 @@ function CheckoutPage() {
           </div>
 
           {/* Stepper */}
-          <div className="grid grid-cols-3 gap-2 lg:gap-8 mb-12">
+          <div className="grid grid-cols-4 gap-2 lg:gap-8 mb-12">
             {STEPS.map((s, i) => (
               <div key={s} className="flex items-center gap-3">
                 <div className={`size-8 rounded-full flex items-center justify-center text-xs font-serif transition-colors ${i <= step ? "bg-charcoal text-white" : "bg-secondary text-muted-foreground"}`}>
@@ -75,8 +76,9 @@ function CheckoutPage() {
                   className="border border-border p-8 lg:p-12"
                 >
                   {step === 0 && <DesignStep />}
-                  {step === 1 && <ShippingStep />}
-                  {step === 2 && <PaymentStep />}
+                  {step === 1 && <ProofStep approved={proofApproved} setApproved={setProofApproved} />}
+                  {step === 2 && <ShippingStep />}
+                  {step === 3 && <PaymentStep />}
 
                   <div className="mt-12 flex justify-between items-center">
                     <button
@@ -87,11 +89,12 @@ function CheckoutPage() {
                       <ArrowLeft className="size-3.5" /> Back
                     </button>
                     <Button
-                      onClick={() => step === 2 ? setDone(true) : setStep(step + 1)}
+                      onClick={() => step === 3 ? setDone(true) : setStep(step + 1)}
+                      disabled={step === 1 && !proofApproved}
                       variant="charcoal"
                       size="luxe"
                     >
-                      {step === 2 ? "Place Order" : "Continue"} <ArrowRight className="ml-1 size-3.5" />
+                      {step === 3 ? "Place Order" : step === 1 ? "Approve & Continue" : "Continue"} <ArrowRight className="ml-1 size-3.5" />
                     </Button>
                   </div>
                 </motion.div>
@@ -198,6 +201,80 @@ function PaymentStep() {
         <CheckoutField label="Card number" full />
         <CheckoutField label="Expiry" />
         <CheckoutField label="CVC" />
+      </div>
+    </div>
+  );
+}
+
+function ProofStep({ approved, setApproved }: { approved: boolean; setApproved: (v: boolean) => void }) {
+  const [acks, setAcks] = useState({ spelling: false, layout: false, color: false });
+  const allChecked = acks.spelling && acks.layout && acks.color;
+
+  return (
+    <div>
+      <h3 className="font-serif text-2xl mb-2">Approve your <span className="italic">proof.</span></h3>
+      <p className="text-sm text-muted-foreground font-light mb-8 flex items-center gap-2">
+        <FileCheck2 className="size-3.5 text-gold" /> Digital proof generated. Once approved, artwork is locked for press.
+      </p>
+
+      <div className="grid md:grid-cols-5 gap-8">
+        <div className="md:col-span-3">
+          <div className="relative group border border-border bg-cream/50 overflow-hidden">
+            <img src={heroInvitation} alt="Artwork proof" className="w-full aspect-[4/5] object-cover" />
+            <div className="absolute top-3 left-3 px-3 py-1 bg-charcoal/80 backdrop-blur text-white text-[9px] tracking-[0.3em] uppercase">
+              Proof v1 · 300dpi
+            </div>
+            <button className="absolute bottom-3 right-3 size-9 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-luxe opacity-0 group-hover:opacity-100 transition-opacity">
+              <ZoomIn className="size-4 text-charcoal" />
+            </button>
+          </div>
+          <button className="mt-4 text-[10px] tracking-[0.25em] uppercase text-muted-foreground hover:text-gold flex items-center gap-2">
+            <Download className="size-3.5" /> Download PDF proof
+          </button>
+        </div>
+
+        <div className="md:col-span-2 space-y-5">
+          <div className="text-[10px] tracking-[0.3em] uppercase text-gold-muted">Please confirm</div>
+
+          {[
+            { key: "spelling" as const, label: "Spelling & names", sub: "All text reads exactly as intended." },
+            { key: "layout" as const, label: "Layout & alignment", sub: "Margins, dates and details are correct." },
+            { key: "color" as const, label: "Color & finish", sub: "Foil placement and tones approved." },
+          ].map((item) => (
+            <label key={item.key} className="flex items-start gap-3 cursor-pointer group">
+              <span
+                className={`mt-0.5 size-5 rounded-sm border flex items-center justify-center transition-colors ${acks[item.key] ? "bg-charcoal border-charcoal" : "border-border group-hover:border-gold"}`}
+                onClick={(e) => { e.preventDefault(); setAcks({ ...acks, [item.key]: !acks[item.key] }); }}
+              >
+                {acks[item.key] && <Check className="size-3 text-white" />}
+              </span>
+              <span>
+                <span className="block font-serif text-base">{item.label}</span>
+                <span className="block text-xs text-muted-foreground font-light">{item.sub}</span>
+              </span>
+            </label>
+          ))}
+
+          <div className="pt-4 border-t border-border">
+            <button
+              type="button"
+              disabled={!allChecked}
+              onClick={() => setApproved(!approved)}
+              className={`w-full py-3 text-[11px] tracking-[0.25em] uppercase transition-all ${
+                approved
+                  ? "bg-gold/10 border border-gold text-gold"
+                  : allChecked
+                  ? "bg-charcoal text-white hover:bg-velvet"
+                  : "bg-secondary text-muted-foreground cursor-not-allowed"
+              }`}
+            >
+              {approved ? "✓ Proof Approved" : "Approve Proof"}
+            </button>
+            <p className="text-[10px] text-muted-foreground font-light mt-3 leading-relaxed">
+              Need changes? <button type="button" className="text-gold hover:underline">Request a revision</button> — first round complimentary.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
