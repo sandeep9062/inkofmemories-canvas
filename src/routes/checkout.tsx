@@ -205,3 +205,77 @@ function PaymentStep() {
     </div>
   );
 }
+
+function ProofStep({ approved, setApproved }: { approved: boolean; setApproved: (v: boolean) => void }) {
+  const [acks, setAcks] = useState({ spelling: false, layout: false, color: false });
+  const allChecked = acks.spelling && acks.layout && acks.color;
+
+  return (
+    <div>
+      <h3 className="font-serif text-2xl mb-2">Approve your <span className="italic">proof.</span></h3>
+      <p className="text-sm text-muted-foreground font-light mb-8 flex items-center gap-2">
+        <FileCheck2 className="size-3.5 text-gold" /> Digital proof generated. Once approved, artwork is locked for press.
+      </p>
+
+      <div className="grid md:grid-cols-5 gap-8">
+        <div className="md:col-span-3">
+          <div className="relative group border border-border bg-cream/50 overflow-hidden">
+            <img src={heroInvitation} alt="Artwork proof" className="w-full aspect-[4/5] object-cover" />
+            <div className="absolute top-3 left-3 px-3 py-1 bg-charcoal/80 backdrop-blur text-white text-[9px] tracking-[0.3em] uppercase">
+              Proof v1 · 300dpi
+            </div>
+            <button className="absolute bottom-3 right-3 size-9 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-luxe opacity-0 group-hover:opacity-100 transition-opacity">
+              <ZoomIn className="size-4 text-charcoal" />
+            </button>
+          </div>
+          <button className="mt-4 text-[10px] tracking-[0.25em] uppercase text-muted-foreground hover:text-gold flex items-center gap-2">
+            <Download className="size-3.5" /> Download PDF proof
+          </button>
+        </div>
+
+        <div className="md:col-span-2 space-y-5">
+          <div className="text-[10px] tracking-[0.3em] uppercase text-gold-muted">Please confirm</div>
+
+          {[
+            { key: "spelling" as const, label: "Spelling & names", sub: "All text reads exactly as intended." },
+            { key: "layout" as const, label: "Layout & alignment", sub: "Margins, dates and details are correct." },
+            { key: "color" as const, label: "Color & finish", sub: "Foil placement and tones approved." },
+          ].map((item) => (
+            <label key={item.key} className="flex items-start gap-3 cursor-pointer group">
+              <span
+                className={`mt-0.5 size-5 rounded-sm border flex items-center justify-center transition-colors ${acks[item.key] ? "bg-charcoal border-charcoal" : "border-border group-hover:border-gold"}`}
+                onClick={(e) => { e.preventDefault(); setAcks({ ...acks, [item.key]: !acks[item.key] }); }}
+              >
+                {acks[item.key] && <Check className="size-3 text-white" />}
+              </span>
+              <span>
+                <span className="block font-serif text-base">{item.label}</span>
+                <span className="block text-xs text-muted-foreground font-light">{item.sub}</span>
+              </span>
+            </label>
+          ))}
+
+          <div className="pt-4 border-t border-border">
+            <button
+              type="button"
+              disabled={!allChecked}
+              onClick={() => setApproved(!approved)}
+              className={`w-full py-3 text-[11px] tracking-[0.25em] uppercase transition-all ${
+                approved
+                  ? "bg-gold/10 border border-gold text-gold"
+                  : allChecked
+                  ? "bg-charcoal text-white hover:bg-velvet"
+                  : "bg-secondary text-muted-foreground cursor-not-allowed"
+              }`}
+            >
+              {approved ? "✓ Proof Approved" : "Approve Proof"}
+            </button>
+            <p className="text-[10px] text-muted-foreground font-light mt-3 leading-relaxed">
+              Need changes? <button type="button" className="text-gold hover:underline">Request a revision</button> — first round complimentary.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
