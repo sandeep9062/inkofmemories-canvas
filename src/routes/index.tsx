@@ -71,29 +71,48 @@ function HomePage() {
 
 function Hero() {
   return (
-    <section className="relative pt-24 pb-24 lg:pt-32 lg:pb-36 px-6 lg:px-10 overflow-hidden">
-      {/* Ambient luxe atmosphere */}
+    <section className="relative pt-28 pb-20 lg:pt-36 lg:pb-28 px-6 lg:px-10 overflow-hidden">
+      {/* Modern ambient atmosphere — soft mesh + grain */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 -right-40 size-[600px] bg-gold/10 blur-[140px] rounded-full" />
-        <div className="absolute -bottom-60 -left-40 size-[500px] bg-gold/5 blur-[120px] rounded-full" />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 size-[700px] bg-gold/[0.04] blur-[160px] rounded-full" />
+        <div className="absolute -top-32 right-1/4 size-[680px] bg-gold/10 blur-[160px] rounded-full" />
+        <div className="absolute -bottom-40 -left-20 size-[520px] bg-gold/[0.06] blur-[140px] rounded-full" />
+        <div className="absolute top-1/2 right-0 size-[420px] bg-velvet/[0.04] blur-[120px] rounded-full" />
+        {/* Modern grid */}
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
-            backgroundSize: "32px 32px",
+              "linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)",
+            backgroundSize: "80px 80px",
+            maskImage:
+              "radial-gradient(ellipse at center, black 30%, transparent 75%)",
           }}
         />
-        {/* Soft top fade */}
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent" />
+        {/* Grain */}
+        <div
+          className="absolute inset-0 opacity-[0.035] mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+          }}
+        />
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background to-transparent" />
       </div>
 
-      {/* Vertical hairline ornaments */}
-      <div className="hidden lg:block absolute top-32 left-10 bottom-32 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent pointer-events-none" />
-      <div className="hidden lg:block absolute top-32 right-10 bottom-32 w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent pointer-events-none" />
+      {/* Top meta rail — modern editorial bar */}
+      <div className="relative max-w-7xl mx-auto mb-12 lg:mb-20 hidden md:flex items-center justify-between text-[10px] tracking-[0.35em] uppercase text-foreground/40 font-light">
+        <div className="flex items-center gap-3">
+          <span className="size-1 rounded-full bg-gold" />
+          <span>Vol. XII · MMXXVI</span>
+        </div>
+        <div className="flex items-center gap-6">
+          <span>London · Milano · NYC</span>
+          <span className="block h-px w-10 bg-foreground/20" />
+          <span className="text-gold-muted">Atelier Open</span>
+        </div>
+      </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 lg:gap-16 items-center relative">
+      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 lg:gap-12 items-center relative">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -104,15 +123,19 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center gap-3 mb-10 px-4 py-2 rounded-full glass-gold"
+            className="inline-flex items-center gap-2 mb-10 pl-2 pr-4 py-2 rounded-full glass-gold group"
           >
-            <span className="size-1.5 rounded-full bg-gold animate-pulse" />
-            <span className="text-[10px] tracking-[0.35em] uppercase text-gold-muted font-medium">
-              Now Accepting Spring '26 Commissions
+            <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-charcoal text-[9px] tracking-[0.25em] uppercase text-gold font-medium">
+              <span className="size-1 rounded-full bg-gold animate-pulse" />
+              New
             </span>
+            <span className="text-[10px] tracking-[0.3em] uppercase text-gold-muted font-medium">
+              Spring '26 Commissions
+            </span>
+            <ArrowRight className="size-3 text-gold-muted group-hover:translate-x-0.5 transition-transform" />
           </motion.div>
 
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-[5.75rem] leading-[0.92] mb-10 text-balance tracking-tight">
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-[6.25rem] leading-[0.9] mb-10 text-balance tracking-[-0.02em]">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -146,61 +169,51 @@ function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap items-center gap-8"
+            className="flex flex-wrap items-center gap-5"
           >
-            <Button asChild variant="charcoal" size="luxeLg" className="group relative overflow-hidden">
+            <Button asChild variant="charcoal" size="luxeLg" className="group relative overflow-hidden rounded-full">
               <Link to="/canvas">
                 <span className="relative z-10">Begin Your Commission</span>
-                <ArrowRight className="ml-1 size-3.5 relative z-10 group-hover:translate-x-1 transition-transform duration-500" />
+                <span className="ml-2 inline-flex size-7 -mr-4 items-center justify-center rounded-full bg-gold text-charcoal relative z-10 group-hover:rotate-45 transition-transform duration-500">
+                  <ArrowRight className="size-3" />
+                </span>
               </Link>
             </Button>
             <Link
               to="/collections"
-              className="group flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-foreground/70 hover:text-gold-muted transition-colors"
+              className="group inline-flex items-center gap-3 px-6 h-16 rounded-full border border-foreground/15 text-[11px] tracking-[0.3em] uppercase text-foreground/70 hover:border-gold/60 hover:text-gold-muted transition-all"
             >
-              View Atelier
-              <span className="block h-px w-8 bg-foreground/30 group-hover:w-14 group-hover:bg-gold transition-all duration-500" />
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-gold/40 animate-ping" />
+                <span className="relative inline-flex size-2 rounded-full bg-gold" />
+              </span>
+              Watch the Press
             </Link>
           </motion.div>
 
-          {/* Trust signal — connoisseurship */}
+          {/* Modern stat strip */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.9 }}
-            className="mt-14 pt-8 border-t border-border/60 flex items-center gap-8 flex-wrap"
+            className="mt-16 grid grid-cols-3 gap-6 max-w-md"
           >
-            <div className="flex items-center gap-3">
-              <div className="flex -space-x-2">
-                {[0, 1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="size-8 rounded-full border-2 border-background bg-gradient-to-br from-gold-light to-gold-muted"
-                    style={{ zIndex: 4 - i }}
-                  />
-                ))}
-              </div>
-              <div>
-                <div className="flex items-center gap-1 mb-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="size-3 fill-gold text-gold" />
-                  ))}
-                  <span className="ml-1.5 text-[11px] font-serif italic text-foreground/80">4.97</span>
+            {[
+              { n: "12", l: "Years\nin practice" },
+              { n: "2.4k", l: "Commissions\ndelivered" },
+              { n: "4.97", l: "Atelier\nrating" },
+            ].map((s, i) => (
+              <div key={i} className="relative">
+                {i > 0 && <span className="absolute -left-3 top-1 bottom-1 w-px bg-border/60" />}
+                <div className="font-serif text-4xl lg:text-5xl text-foreground leading-none tracking-tight">
+                  {s.n}
+                  <span className="text-gold">.</span>
                 </div>
-                <div className="text-[10px] tracking-[0.2em] uppercase text-foreground/50 font-light">
-                  2,400+ connoisseurs
+                <div className="mt-3 text-[9px] tracking-[0.25em] uppercase text-foreground/50 font-light whitespace-pre-line leading-relaxed">
+                  {s.l}
                 </div>
               </div>
-            </div>
-            <div className="h-10 w-px bg-border/60 hidden sm:block" />
-            <div>
-              <div className="font-serif text-xl gold-foil leading-none">
-                Vogue · Vanity Fair
-              </div>
-              <div className="text-[10px] tracking-[0.2em] uppercase text-foreground/50 font-light mt-1.5">
-                As featured in
-              </div>
-            </div>
+            ))}
           </motion.div>
         </motion.div>
 
@@ -210,20 +223,19 @@ function Hero() {
           transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           className="col-span-12 lg:col-span-7 relative"
         >
-          {/* Corner ornaments */}
-          <div className="absolute -top-4 -left-4 size-8 border-l border-t border-gold/40 z-20" />
-          <div className="absolute -bottom-4 -right-4 size-8 border-r border-b border-gold/40 z-20" />
-
-          <div className="relative aspect-[4/5] lg:aspect-[5/6] overflow-hidden shadow-luxe group">
+          {/* Modern bento layout */}
+          <div className="relative grid grid-cols-6 grid-rows-6 gap-3 aspect-[4/5] lg:aspect-[5/5.5]">
+            {/* Main image */}
+            <div className="col-span-6 row-span-6 relative overflow-hidden rounded-3xl shadow-luxe group">
             {/* Gold gradient frame on hover */}
-            <div className="absolute inset-0 z-10 pointer-events-none ring-1 ring-inset ring-gold/0 group-hover:ring-gold/20 transition-all duration-700" />
+            <div className="absolute inset-0 z-10 pointer-events-none ring-1 ring-inset ring-gold/0 group-hover:ring-gold/30 transition-all duration-700 rounded-3xl" />
 
             <motion.img
               src={heroInvitation}
               alt="Gold foiled wedding invitation, hand-pressed at the InkOfMemories atelier"
               width={1024}
               height={1280}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.04]"
               initial={{ scale: 1.08 }}
               animate={{ scale: 1 }}
               transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
@@ -237,14 +249,10 @@ function Hero() {
               initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
-              className="absolute top-6 left-6 lg:top-10 lg:left-10 flex items-center gap-3"
+              className="absolute top-6 left-6 lg:top-8 lg:left-8 flex items-center gap-3 px-3 py-2 rounded-full glass-dark"
             >
-              <div className="size-10 rounded-full glass-dark flex items-center justify-center">
-                <span className="font-serif text-gold text-sm italic">N°</span>
-              </div>
-              <div className="text-white/70 text-[10px] tracking-[0.3em] uppercase">
-                047 / 100
-              </div>
+              <span className="font-serif text-gold text-sm italic">N°</span>
+              <div className="text-white/80 text-[10px] tracking-[0.3em] uppercase">047 / 100</div>
             </motion.div>
 
             {/* Bottom card */}
@@ -252,22 +260,26 @@ function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.9 }}
-              className="absolute bottom-6 right-6 lg:bottom-10 lg:right-10 glass-dark p-7 max-w-[280px] rounded-sm"
+              className="absolute bottom-6 left-6 right-6 lg:bottom-8 lg:left-8 lg:right-8 glass-dark p-5 lg:p-6 rounded-2xl flex items-center gap-5"
             >
-              <div className="text-gold text-[10px] tracking-[0.3em] uppercase mb-3">
-                Featured Commission
+              <div className="flex-1 min-w-0">
+                <div className="text-gold text-[9px] tracking-[0.3em] uppercase mb-1.5">
+                  Featured · Bespoke
+                </div>
+                <div className="font-serif text-xl lg:text-2xl text-white italic leading-tight truncate">
+                  The St. Regis Suite
+                </div>
+                <p className="hidden lg:block text-[11px] text-white/55 font-light leading-relaxed mt-1.5 truncate">
+                  24k foil · hand-milled Amalfi cotton · From £480
+                </p>
               </div>
-              <div className="font-serif text-2xl text-white italic leading-tight">
-                The St. Regis Suite
-              </div>
-              <div className="hairline-gold w-12 mt-4 mb-4" />
-              <p className="text-[11px] tracking-wide text-white/60 font-light leading-relaxed">
-                24k micron-pressed foil on hand-milled Amalfi cotton.
-              </p>
-              <div className="mt-5 flex items-center justify-between text-[10px] tracking-[0.2em] uppercase text-white/40">
-                <span>From £480</span>
-                <span className="text-gold/80">Bespoke</span>
-              </div>
+              <Link
+                to="/collections"
+                className="shrink-0 inline-flex size-11 items-center justify-center rounded-full bg-gold text-charcoal hover:rotate-45 transition-transform duration-500"
+                aria-label="View commission"
+              >
+                <ArrowRight className="size-4" />
+              </Link>
             </motion.div>
 
             {/* Floating spec chip */}
@@ -275,7 +287,7 @@ function Hero() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1, duration: 0.6 }}
-              className="hidden md:flex absolute top-1/3 -left-8 glass px-5 py-4 rounded-sm flex-col items-center shadow-luxe"
+              className="hidden md:flex absolute top-[28%] -left-8 glass px-5 py-4 rounded-2xl flex-col items-center shadow-luxe"
             >
               <span className="font-serif text-2xl gold-foil leading-none">600</span>
               <span className="text-[8px] tracking-[0.25em] uppercase text-foreground/50 mt-1">gsm cotton</span>
@@ -286,11 +298,12 @@ function Hero() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.15, duration: 0.6 }}
-              className="hidden md:flex absolute top-2/3 -right-8 glass px-5 py-4 rounded-sm flex-col items-center shadow-luxe"
+              className="hidden md:flex absolute top-[58%] -right-8 glass px-5 py-4 rounded-2xl flex-col items-center shadow-luxe"
             >
               <span className="font-serif text-2xl gold-foil leading-none">24k</span>
               <span className="text-[8px] tracking-[0.25em] uppercase text-foreground/50 mt-1">gold foil</span>
             </motion.div>
+            </div>
           </div>
 
           {/* Vertical edition mark */}
