@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, Check, ArrowRight, ArrowLeft } from "lucide-react";
+import { Lock, Check, ArrowRight, ArrowLeft, FileCheck2, ZoomIn, Download } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import heroInvitation from "@/assets/hero-invitation.jpg";
@@ -18,11 +18,12 @@ export const Route = createFileRoute("/checkout")({
   component: CheckoutPage,
 });
 
-const STEPS = ["Design", "Shipping", "Payment"] as const;
+const STEPS = ["Design", "Proof", "Shipping", "Payment"] as const;
 
 function CheckoutPage() {
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
+  const [proofApproved, setProofApproved] = useState(false);
 
   return (
     <SiteLayout>
@@ -33,7 +34,7 @@ function CheckoutPage() {
           </div>
 
           {/* Stepper */}
-          <div className="grid grid-cols-3 gap-2 lg:gap-8 mb-12">
+          <div className="grid grid-cols-4 gap-2 lg:gap-8 mb-12">
             {STEPS.map((s, i) => (
               <div key={s} className="flex items-center gap-3">
                 <div className={`size-8 rounded-full flex items-center justify-center text-xs font-serif transition-colors ${i <= step ? "bg-charcoal text-white" : "bg-secondary text-muted-foreground"}`}>
@@ -75,8 +76,9 @@ function CheckoutPage() {
                   className="border border-border p-8 lg:p-12"
                 >
                   {step === 0 && <DesignStep />}
-                  {step === 1 && <ShippingStep />}
-                  {step === 2 && <PaymentStep />}
+                  {step === 1 && <ProofStep approved={proofApproved} setApproved={setProofApproved} />}
+                  {step === 2 && <ShippingStep />}
+                  {step === 3 && <PaymentStep />}
 
                   <div className="mt-12 flex justify-between items-center">
                     <button
@@ -87,11 +89,12 @@ function CheckoutPage() {
                       <ArrowLeft className="size-3.5" /> Back
                     </button>
                     <Button
-                      onClick={() => step === 2 ? setDone(true) : setStep(step + 1)}
+                      onClick={() => step === 3 ? setDone(true) : setStep(step + 1)}
+                      disabled={step === 1 && !proofApproved}
                       variant="charcoal"
                       size="luxe"
                     >
-                      {step === 2 ? "Place Order" : "Continue"} <ArrowRight className="ml-1 size-3.5" />
+                      {step === 3 ? "Place Order" : step === 1 ? "Approve & Continue" : "Continue"} <ArrowRight className="ml-1 size-3.5" />
                     </Button>
                   </div>
                 </motion.div>
